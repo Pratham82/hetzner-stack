@@ -43,7 +43,7 @@ func main() {
 
 	r.Get("/api/hello", func(w http.ResponseWriter, _ *http.Request) {
 		writeJSON(w, http.StatusOK, map[string]string{
-			"message": "Hello from Go",
+			"message": "Hello from Go v2",
 			"time":    time.Now().UTC().Format(time.RFC3339),
 		})
 	})
