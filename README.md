@@ -37,6 +37,18 @@ curl -sI http://127.0.0.1:3000
 
 ## Deploy (manual, until CI/CD exists)
 
+Use the helper script (rebuilds the image, recreates the container, prunes
+dangling images, runs health checks):
+
+```bash
+./deploy.sh            # rebuild + restart both
+./deploy.sh api        # only the Go API
+./deploy.sh web        # only the frontend
+./deploy.sh --pull     # git pull first, rebuild only the service that changed
+```
+
+Equivalent by hand:
+
 ```bash
 git pull
 docker compose up -d --build
