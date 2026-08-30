@@ -1,0 +1,15 @@
+# secrets / local env
+.env
+
+# frontend
+frontend/node_modules
+frontend/.next
+frontend/out
+frontend/next-env.d.ts
+
+# backend
+backend/server
+
+# misc
+.DS_Store
+*.log

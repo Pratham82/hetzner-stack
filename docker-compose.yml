@@ -1,0 +1,32 @@
+name: hetzner-stack
+
+services:
+  api:
+    build: ./backend
+    image: hetzner-stack/api:local
+    restart: unless-stopped
+    environment:
+      PORT: "8080"
+      ALLOWED_ORIGIN: "https://hetzner.pratham82.in"
+    ports:
+      - "127.0.0.1:8080:8080"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    image: hetzner-stack/web:local
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - api
